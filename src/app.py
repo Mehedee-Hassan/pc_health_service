@@ -1,5 +1,6 @@
 import psutil
-from flask import Flask
+from flask import Flask, render_template
+import templates
 
 app = Flask(__name__)
 
@@ -13,8 +14,13 @@ def index():
     if cpu_percent > 80 or mem_percent > 80:
         message = "High cpu or memory utilization!"
 
-    return f"CPU Utilization: {cpu_percent}" \
-           f" and Memory Utilization : {mem_percent}"
+    # return f"CPU Utilization: {cpu_percent}" \
+    #        f" and Memory Utilization : {mem_percent}"
+
+    return render_template("index.html"
+                           , cpu_percent=cpu_percent
+                           , mem_percent= f"{mem_percent}"
+                           , message=message)
 
 
 if __name__ == '__main__':
